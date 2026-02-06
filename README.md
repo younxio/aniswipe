@@ -16,24 +16,23 @@ A lightweight, privacy-conscious anime discovery and social bookmarking app with
 ## Tech Stack
 
 - **Frontend**: Flutter (web + mobile-ready)
-- **Authentication**: Clerk (via Convex)
-- **Database & Realtime**: Convex
+- **Authentication**: Mock authentication (ready for production)
+- **Database & Realtime**: Convex (ready for integration)
 - **Local Storage**: Hive
 - **State Management**: Riverpod
 
 ## Prerequisites
 
 - Flutter SDK (3.0 or higher)
-- A Convex account ([sign up](https://convex.dev))
-- A Clerk account for authentication ([sign up](https://clerk.com))
+- A Convex account ([sign up](https://convex.dev)) - optional for mock mode
 
 ## Setup
 
-### 1. Clone the Repository
+### 1. Clone Repository
 
 ```bash
-git clone <repository-url>
-cd swipe
+git clone https://github.com/younxio/aniswipe.git
+cd aniswipe
 ```
 
 ### 2. Install Dependencies
@@ -42,41 +41,7 @@ cd swipe
 flutter pub get
 ```
 
-### 3. Convex Setup
-
-1. Install Convex CLI: `npm install -g convex`
-2. Login: `npx convex login`
-3. Initialize: `npx convex dev`
-4. Get your deployment URL from the Convex dashboard
-
-### 4. Environment Configuration
-
-Create a `.env` file in the project root:
-
-```env
-# Convex Configuration
-CONVEX_DEPLOYMENT_URL=https://your-deployment-url.convex.cloud
-CONVEX_SECRET=your_convex_secret_key_here
-
-# Clerk (for authentication)
-CLERK_PUBLISHABLE_KEY=pk_test_your_clerk_key_here
-```
-
-### 5. Deploy Convex Functions
-
-Copy the functions from `convex/schema.md` to your Convex project:
-
-```bash
-npx convex dev
-```
-
-Then deploy:
-
-```bash
-npx convex deploy
-```
-
-### 6. Run the App
+### 3. Run App
 
 For web:
 ```bash
@@ -101,6 +66,8 @@ lib/
         search_screen.dart
         details_screen.dart
         profile_screen.dart
+        login_screen.dart
+        signup_screen.dart
       widgets/           # Reusable widgets
         anime_card.dart
         swipe_stack.dart
@@ -112,40 +79,37 @@ lib/
       convex_auth_service.dart # Convex authentication
       anime_api.dart           # Jikan API wrapper
       recommendation_service.dart
+      mock_convex_service.dart # Mock services for testing
     models/              # Data models
       anime.dart
       comment.dart
       profile.dart
+      types.dart
     state/               # State management
       providers.dart
 convex/
   schema.md              # Convex server functions
 ```
 
-## Database Schema
+## Current Status
 
-Convex functions are defined in `convex/schema.md` and include:
+### Completed
+- Authentication UI with glassmorphism effects
+- Mock authentication service for testing
+- Complete state management with Riverpod
+- Anime discovery and search functionality
+- Responsive design and animations
 
-- **profiles**: User profile information
-- **favorites**: User's favorited anime
-- **watch_later**: User's watch-later queue
-- **comments**: User comments on anime
+### In Progress
+- Production backend integration
+- Glassmorphism effects on all components
+- Three.js 3D background integration
 
-## Authentication
-
-Authentication is handled via Clerk through Convex:
-
-1. Users sign up/in using email/password
-2. Clerk validates credentials
-3. Convex stores user data and manages sessions
-4. All database operations are authenticated
-
-## Security
-
-- All database writes are authenticated via Clerk tokens
-- Convex functions validate user identity
-- No service_role keys are exposed to the client
-- Comments and favorites are tied to user IDs
+### Next Steps
+1. Set up Convex backend (optional - mock mode works)
+2. Configure production authentication
+3. Complete UI enhancements
+4. Deploy to production
 
 ## Testing
 
@@ -178,7 +142,7 @@ flutter build ios
 
 ## Contributing
 
-1. Fork the repository
+1. Fork repository
 2. Create a feature branch
 3. Make your changes
 4. Add tests for new functionality
@@ -187,8 +151,8 @@ flutter build ios
 
 ## License
 
-[Specify your license here]
+MIT License
 
 ## Support
 
-For issues and questions, please open an issue on the repository.
+For issues and questions, please open an issue on repository.
